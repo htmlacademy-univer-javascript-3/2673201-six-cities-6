@@ -1,11 +1,11 @@
 import MainScreen from '../../pages/main-screen/main-screen.tsx';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import LoginScreen from "../../pages/login-screen/login-screen.tsx";
-import FavoritesScreen from "../../pages/favorites-screen/favorites-screen.tsx";
-import PropertyScreen from "../../pages/property-screen/property-screen.tsx";
-import PrivateRoute from "../private-route/private-route.tsx";
-import {AuthorizationStatus} from "../../const.ts";
-import NotFound from "../../pages/found-not-screen/found-not-screen.tsx";
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import LoginScreen from '../../pages/login-screen/login-screen.tsx';
+import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
+import PropertyScreen from '../../pages/property-screen/property-screen.tsx';
+import PrivateRoute from '../private-route/private-route.tsx';
+import {AuthorizationStatus} from '../../const.ts';
+import NotFound from '../../pages/found-not-screen/found-not-screen.tsx';
 
 type AppScreenProps = {
   offerCardCount: number;
