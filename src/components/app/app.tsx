@@ -2,30 +2,41 @@ import MainScreen from '../../pages/main-screen/main-screen.tsx';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import LoginScreen from '../../pages/login-screen/login-screen.tsx';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
-import PropertyScreen from '../../pages/property-screen/property-screen.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
-import {AuthorizationStatus} from '../../const.ts';
+import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import NotFound from '../../pages/found-not-screen/found-not-screen.tsx';
+import {Offer} from '../../types/type-offer.ts';
+import OfferScreen from '../../pages/offer-screen/offer-screen.tsx';
 
 type AppScreenProps = {
   offerCardCount: number;
+  offers: Offer[];
 }
 
-function App({ offerCardCount } : AppScreenProps): JSX.Element {
+function App({offerCardCount, offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainScreen offerCardCount={offerCardCount}/>}/>
-        <Route path="/login" element={<LoginScreen/>}/>
+        <Route path={AppRoute.Root}
+          element={<MainScreen offerCardCount={offerCardCount} offers={offers}/>}
+        />
+        <Route path={AppRoute.Login}
+          element={<LoginScreen/>}
+        />
         <Route
-          path="/favorites" element={
+          path={AppRoute.Favorites}
+          element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesScreen/>
+              <FavoritesScreen offers={offers}/>
             </PrivateRoute>
           }
         />
-        <Route path="/offer/:id" element={<PropertyScreen/>}/>
-        <Route path="*" element={<NotFound/>}/>
+        <Route path={AppRoute.Offer}
+          element={<OfferScreen offers={offers}/>}
+        />
+        <Route path={AppRoute.NotFound}
+          element={<NotFound/>}
+        />
       </Routes>
     </BrowserRouter>
   );
