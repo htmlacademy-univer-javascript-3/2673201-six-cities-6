@@ -12,9 +12,6 @@ function OffersList({ offers, onCardHover }: OffersListProps): JSX.Element {
     onCardHover?.(offerId);
   };
 
-  const handleMouseLeave = () => {
-    onCardHover?.(null);
-  };
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
@@ -22,7 +19,6 @@ function OffersList({ offers, onCardHover }: OffersListProps): JSX.Element {
           key={offer.id}
           offer={offer}
           onMouseEnter={() => handleMouseEnter(offer.id)}
-          onMouseLeave={handleMouseLeave}
         />
       ))}
     </div>
