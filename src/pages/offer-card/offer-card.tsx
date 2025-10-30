@@ -4,16 +4,24 @@ import { Offer } from '../../types/type-offer';
 type OfferCardProps = {
   offer: Offer;
   onMouseEnter?: (id: number) => void;
+  isNeighbour?: boolean;
 }
 
-function OfferCard({ offer, onMouseEnter }: OfferCardProps): JSX.Element {
+function OfferCard({ offer, onMouseEnter, isNeighbour }: OfferCardProps): JSX.Element {
   const handleMouseEnter = () => {
     onMouseEnter?.(offer.id);
   };
 
+  const baseClass = `place-card ${isNeighbour
+    ? 'near-places__card'
+    : 'cities__card'}`;
+  const imagesClass = `place-card__image-wrapper ${isNeighbour
+    ? 'near-places__image-wrapper'
+    : 'cities__image-wrapper'}`;
+
   return (
     <article
-      className="cities__card place-card"
+      className={baseClass}
       onMouseEnter={handleMouseEnter}
     >
       {offer.isPremium && (
@@ -21,7 +29,7 @@ function OfferCard({ offer, onMouseEnter }: OfferCardProps): JSX.Element {
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={imagesClass}>
         <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"

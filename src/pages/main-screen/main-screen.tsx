@@ -2,19 +2,20 @@ import {Offer} from '../../types/type-offer.ts';
 import OffersList from '../../components/offer-list/offers-list.tsx';
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
+import Map from '../../components/map/map.jsx';
+import {AMSTERDAM} from '../../mocks/cities.js';
 
 type MainScreenProps = {
-    offerCardCount: number;
-    offers: Offer[];
+  offerCardCount: number;
+  offers: Offer[];
 }
 
-
 function MainScreen({offerCardCount, offers}: MainScreenProps): JSX.Element {
-  const [activeOfferId, setActiveOfferId] = useState<number | null>(null);
-
+  const [, setActiveOfferId] = useState<number | null>(null);
   const handleCardHover = (offerId: number | null) => {
     setActiveOfferId(offerId);
   };
+  const coords: [number, number][] = offers.map((off) => off.coordinates);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -110,14 +111,12 @@ function MainScreen({offerCardCount, offers}: MainScreenProps): JSX.Element {
                 offers={offers}
                 onCardHover={handleCardHover}
               />
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  {activeOfferId && (
-                    <div style={{display: 'none'}}>{activeOfferId}</div>
-                  )}
-                </section>
-              </div>
             </section>
+            <div className="cities__right-section">
+              <section className="cities__map map">
+                <Map city={AMSTERDAM} coords={coords}/>
+              </section>
+            </div>
           </div>
         </div>
       </main>
