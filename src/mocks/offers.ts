@@ -24,7 +24,8 @@ export const offers: Offer[] = [
       avatarUrl: 'kolya.jpg'
     },
     price: 10,
-    city: 'Paris'
+    city: 'Amsterdam',
+    coordinates: [52.3909553943508, 4.85309666406198]
   },
   {
     id: 2,
@@ -49,7 +50,8 @@ export const offers: Offer[] = [
       avatarUrl: 'vlada.jpg'
     },
     price: 12,
-    city: 'Cologne'
+    city: 'Amsterdam',
+    coordinates: [52.3609553943508, 4.85309666406198]
   },
   {
     id: 3,
@@ -74,7 +76,8 @@ export const offers: Offer[] = [
       avatarUrl: 'dasha.jpg'
     },
     price: 104,
-    city: 'Amsterdam'
+    city: 'Amsterdam',
+    coordinates: [52.3909553943508, 4.929309666406198]
   },
   {
     id: 4,
@@ -99,6 +102,7 @@ export const offers: Offer[] = [
       avatarUrl: 'maomao.jpg'
     },
     price: 108,
-    city: 'Brussels'
+    city: 'Amsterdam',
+    coordinates: [52.3809553943508, 4.939309666406198]
   }
 ];
