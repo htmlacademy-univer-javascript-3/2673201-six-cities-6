@@ -2,8 +2,8 @@ import {Offer} from '../../types/type-offer.ts';
 import OffersList from '../../components/offer-list/offers-list.tsx';
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
-import Map from "../../components/map/map.jsx";
-import {AMSTERDAM} from "../../mocks/cities.js";
+import Map from '../../components/map/map.jsx';
+import {AMSTERDAM} from '../../mocks/cities.js';
 
 type MainScreenProps = {
     offerCardCount: number;
@@ -15,7 +15,7 @@ function MainScreen({offerCardCount, offers}: MainScreenProps): JSX.Element {
   const handleCardHover = (offerId: number | null) => {
     setActiveOfferId(offerId);
   };
-  const coords: [number, number][] = offers.map(off => off.coordinates);
+  const coords: [number, number][] = offers.map((off) => off.coordinates);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -112,11 +112,11 @@ function MainScreen({offerCardCount, offers}: MainScreenProps): JSX.Element {
                 onCardHover={handleCardHover}
               />
             </section>
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map city={AMSTERDAM} coords={coords}/>
-                </section>
-              </div>
+            <div className="cities__right-section">
+              <section className="cities__map map">
+                <Map city={AMSTERDAM} coords={coords}/>
+              </section>
+            </div>
           </div>
         </div>
       </main>

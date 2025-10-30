@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { Offer } from '../../types/type-offer';
 import {CommentSendReview} from '../../components/comment-send-review/comment-send-review.jsx';
-import {reviews} from "../../mocks/reviews.js";
+import {reviews} from '../../mocks/reviews.js';
 
 type OfferScreenProps = {
   offers: Offer[];
@@ -147,7 +147,7 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src={'img/${offer.host.avatarUrl}'} width="74" height="74" alt={'${offer.host.name} avatar'}/>
+                    <img className="offer__avatar user__avatar" src={`img/${offer.host.avatarUrl}`} width="74" height="74" alt={`${offer.host.name} avatar`}/>
                   </div>
                   <span className="offer__user-name">
                     {offer.host.name}
@@ -166,30 +166,30 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerReviews.length}</span></h2>
                 <ul className="reviews__list">
                   {offerReviews.map((review) => (
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src={'img/${review.user.avatarUrl}'} width="54" height="54"
-                          alt={'${review.user.name} avatar'}
-                        />
-                      </div>
-                      <span className="reviews__user-name">
-                        {review.user.name}
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{ width: `${(review.rating / 5) * 100}%` }} />
-                          <span className='visually-hidden'>Rating</span>
+                    <li key={review.id} className="reviews__item">
+                      <div className="reviews__user user">
+                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
+                          <img className="reviews__avatar user__avatar" src={`img/${review.user.avatarUrl}`} width="54" height="54"
+                            alt={`${review.user.name} avatar`}
+                          />
                         </div>
+                        <span className="reviews__user-name">
+                          {review.user.name}
+                        </span>
                       </div>
-                      <p className="reviews__text">
-                        {review.text}
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">{review.date}</time>
-                    </div>
-                  </li>
+                      <div className="reviews__info">
+                        <div className="reviews__rating rating">
+                          <div className="reviews__stars rating__stars">
+                            <span style={{ width: `${(review.rating / 5) * 100}%` }} />
+                            <span className='visually-hidden'>Rating</span>
+                          </div>
+                        </div>
+                        <p className="reviews__text">
+                          {review.text}
+                        </p>
+                        <time className="reviews__time" dateTime="2019-04-24">{review.date}</time>
+                      </div>
+                    </li>
                   ))}
                 </ul>
                 <CommentSendReview/>

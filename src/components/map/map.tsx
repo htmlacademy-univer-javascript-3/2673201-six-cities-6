@@ -2,7 +2,7 @@ import {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from './use-map.jsx';
-import {City} from "../../types/type-city.js";
+import {City} from '../../types/type-city.js';
 
 export type OffersMapProps = {
   city: City;

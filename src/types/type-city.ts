@@ -1,4 +1,4 @@
-import {CityType} from "./type-offer.ts";
+import {CityType} from './type-offer.ts';
 
 export type City = {
   name: CityType;
