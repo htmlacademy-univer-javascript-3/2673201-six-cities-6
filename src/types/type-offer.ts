@@ -1,10 +1,14 @@
+export type CityType = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf'
+
+export type OfferRentType = 'apartment' | 'room' | 'house' | 'hotel';
+
 export type Offer = {
   id: number;
   images: string[];
   title: string;
   description: string;
   isPremium: boolean;
-  type: 'apartment' | 'room' | 'house' | 'hotel';
+  type: OfferRentType;
   price: number;
   rating: number;
   bedrooms: number;
@@ -14,5 +18,6 @@ export type Offer = {
     isPro: boolean;
     avatarUrl: string;
   };
-  city: 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
+  city: CityType;
+  coordinates: [latitude: number, longtitude: number];
 };
