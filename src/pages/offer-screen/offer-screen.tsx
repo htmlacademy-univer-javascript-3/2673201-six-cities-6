@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { Offer } from '../../types/type-offer';
-import {CommentSendReview} from '../../components/comment-send-review/comment-send-review.tsx';
+import {CommentSendReview} from '../../components/comment-send-review/comment-send-review.jsx';
+import {reviews} from '../../mocks/reviews.js';
 
 type OfferScreenProps = {
   offers: Offer[];
@@ -12,6 +13,7 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
   if (!offer) {
     return <div>Offer not found</div>;
   }
+  const offerReviews = reviews.filter((review) => review.offerId === offer.id);
 
   return (
     <div className="page">
@@ -145,7 +147,7 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
+                    <img className="offer__avatar user__avatar" src={`img/${offer.host.avatarUrl}`} width="74" height="74" alt={`${offer.host.name} avatar`}/>
                   </div>
                   <span className="offer__user-name">
                     {offer.host.name}
@@ -156,43 +158,39 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The
-                    building is green and from 18th century.
-                  </p>
-                  <p className="offer__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where
-                    the bustle of the city comes to rest in this alley flowery and colorful.
+                    {offer.description}
                   </p>
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerReviews.length}</span></h2>
                 <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54"
-                          alt="Reviews avatar"
-                        />
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: '80%'}}></span>
-                          <span className='visually-hidden'>Rating</span>
+                  {offerReviews.map((review) => (
+                    <li key={review.id} className="reviews__item">
+                      <div className="reviews__user user">
+                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
+                          <img className="reviews__avatar user__avatar" src={`img/${review.user.avatarUrl}`} width="54" height="54"
+                            alt={`${review.user.name} avatar`}
+                          />
                         </div>
+                        <span className="reviews__user-name">
+                          {review.user.name}
+                        </span>
                       </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-                        The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
+                      <div className="reviews__info">
+                        <div className="reviews__rating rating">
+                          <div className="reviews__stars rating__stars">
+                            <span style={{ width: `${(review.rating / 5) * 100}%` }} />
+                            <span className='visually-hidden'>Rating</span>
+                          </div>
+                        </div>
+                        <p className="reviews__text">
+                          {review.text}
+                        </p>
+                        <time className="reviews__time" dateTime="2019-04-24">{review.date}</time>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
                 <CommentSendReview/>
               </section>
@@ -206,7 +204,7 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
             <div className="near-places__list places__list">
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <Link to={`/offer/${offers[0]?.id || 1}`}>
+                  <Link to={`/offer/${offers[0]?.id ?? 1}`}>
                     <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
                   </Link>
                 </div>
@@ -232,7 +230,7 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <Link to={`/offer/${offers[0]?.id || 1}`}>Wood and stone place</Link>
+                    <Link to={`/offer/${offers[0]?.id ?? 1}`}>Wood and stone place</Link>
                   </h2>
                   <p className="place-card__type">Room</p>
                 </div>

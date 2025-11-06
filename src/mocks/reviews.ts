@@ -8,7 +8,7 @@ export const reviews: Review[] = [
       name: 'Valera',
       avatarUrl: 'valera.jpg'
     },
-    rating: 5,
+    rating: 2.8,
     date: 'April 2024',
     text: 'Cool'
   },
@@ -19,7 +19,7 @@ export const reviews: Review[] = [
       name: 'Kolya',
       avatarUrl: 'kolya.jpg'
     },
-    rating: 4,
+    rating: 4.4,
     date: 'September 2025',
     text: 'Not bad'
   },
@@ -30,7 +30,7 @@ export const reviews: Review[] = [
       name: 'Artem',
       avatarUrl: 'artem.jpg'
     },
-    rating: 5,
+    rating: 3.5,
     date: 'February 2024',
     text: 'Well!'
   },
@@ -41,7 +41,7 @@ export const reviews: Review[] = [
       name: 'Vlada',
       avatarUrl: 'vlada.jpg'
     },
-    rating: 5,
+    rating: 4.5,
     date: 'January 2025',
     text: 'Super, i like it'
   }
