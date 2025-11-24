@@ -6,8 +6,8 @@ import Map from '../../components/map/map.jsx';
 import {AMSTERDAM} from '../../mocks/cities.js';
 
 type MainScreenProps = {
-    offerCardCount: number;
-    offers: Offer[];
+  offerCardCount: number;
+  offers: Offer[];
 }
 
 function MainScreen({offerCardCount, offers}: MainScreenProps): JSX.Element {
