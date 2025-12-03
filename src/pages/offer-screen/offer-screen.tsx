@@ -3,9 +3,10 @@ import { Offer } from '../../types/type-offer';
 import {CommentSendReview} from '../../components/comment-send-review/comment-send-review.jsx';
 import {reviews} from '../../mocks/reviews.js';
 import ReviewList from '../../components/review-list/review-list.tsx';
-import {AMSTERDAM} from '../../mocks/cities.ts';
+import {CITIES_LIST} from '../../mocks/cities.ts';
 import Map from '../../components/map/map.tsx';
 import OfferCard from '../offer-card/offer-card.tsx';
+import {City} from "../../types/type-city.ts";
 
 type OfferScreenProps = {
   offers: Offer[];
@@ -18,7 +19,8 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
     return <div>Offer not found</div>;
   }
   const neighbors = offers.filter((off) => off.city === offer.city && off.id !== offer.id).slice(0, 3);
-  const coords: [number, number][] = neighbors.map((off) => off.coordinates);
+  const coords: [number, number][] = [offer, ...neighbors].map((off) => off.coordinates);
+  const currentCity: City = CITIES_LIST.find((city) => city.name === offer.city) ?? CITIES_LIST[0];
   return (
     <div className="page">
       <header className="header">
@@ -160,7 +162,7 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={AMSTERDAM} coords={coords}/>
+            <Map city={currentCity} coords={coords}/>
           </section>
         </section>
         <div className="container">

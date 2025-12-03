@@ -102,7 +102,7 @@ export const offers: Offer[] = [
       avatarUrl: 'maomao.jpg'
     },
     price: 108,
-    city: 'Amsterdam',
+    city: 'Paris',
     coordinates: [52.3809553943508, 4.939309666406198]
   }
 ];
