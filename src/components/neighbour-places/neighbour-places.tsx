@@ -5,7 +5,7 @@ type NeighbourPlacesProps = {
   offers: Offer[];
 }
 
-function NeighbourPlacesList({offers}: NeighbourPlacesProps) {
+function NeighbourPlaces({offers}: NeighbourPlacesProps) {
   return (
     <div className="near-places__list places__list">
       {offers.map((off) => (
@@ -15,4 +15,4 @@ function NeighbourPlacesList({offers}: NeighbourPlacesProps) {
   );
 }
 
-export default NeighbourPlacesList;
+export default NeighbourPlaces;
