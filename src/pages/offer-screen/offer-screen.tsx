@@ -162,7 +162,7 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={currentCity} coords={coords}/>
+            <Map city={currentCity} coords={coords} activeCoord={offer.coordinates}/>
           </section>
         </section>
         <div className="container">
