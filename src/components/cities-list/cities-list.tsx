@@ -25,8 +25,8 @@ export default function CitiesList({ cities}: CitiesListProps): JSX.Element {
           <a
             href="#"
             className={
-              'locations__item-link tabs__item' +
-              (city.name === activeCity ? ' tabs__item--active' : '')
+              `locations__item-link tabs__item${
+                city.name === activeCity ? ' tabs__item--active' : ''}`
             }
             onClick={(evt) => {
               evt.preventDefault();

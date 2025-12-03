@@ -1,5 +1,5 @@
 import type {CityType, Offer} from './type-offer';
-import {store} from "../store";
+import {store} from '../store';
 
 export type InitialState = {
   city: CityType;

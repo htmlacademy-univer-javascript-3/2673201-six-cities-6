@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, setOffers } from './action';
 import type { InitialState } from '../types/state';
 import { offers } from '../mocks/offers';
-import {CITIES} from "../const.ts";
+import {CITIES} from '../const.ts';
 
 const initialState: InitialState = {
   city: CITIES.Paris,

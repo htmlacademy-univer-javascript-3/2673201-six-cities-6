@@ -3,11 +3,11 @@ import OffersList from '../../components/offer-list/offers-list.tsx';
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
 import Map from '../../components/map/map.jsx';
-import CitiesList from "../../components/cities-list/cities-list.tsx";
-import {City} from "../../types/type-city.ts";
-import {useSelector} from "react-redux";
-import {State} from "../../types/state.ts";
-import {CITIES_LIST} from "../../mocks/cities.ts";
+import CitiesList from '../../components/cities-list/cities-list.tsx';
+import {City} from '../../types/type-city.ts';
+import {useSelector} from 'react-redux';
+import {State} from '../../types/state.ts';
+import {CITIES_LIST} from '../../mocks/cities.ts';
 
 type MainScreenProps = {
   offerCardCount: number;
