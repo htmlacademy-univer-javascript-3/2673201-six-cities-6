@@ -1,8 +1,8 @@
-import {Offer} from '../../types/type-offer.ts';
 import OfferCard from '../../pages/offer-card/offer-card.tsx';
+import {MainOffer} from '../../types/main-offers.ts';
 
 type NeighbourPlacesProps = {
-  offers: Offer[];
+  offers: MainOffer[];
 }
 
 function NeighbourPlaces({offers}: NeighbourPlacesProps) {

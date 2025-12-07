@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/type-offer';
+import {MainOffer} from '../../types/main-offers.ts';
 
 type OfferCardProps = {
-  offer: Offer;
-  onMouseEnter?: (id: number) => void;
+  offer: MainOffer;
+  onMouseEnter?: (id: string) => void;
   isNeighbour?: boolean;
 }
 
@@ -33,7 +33,7 @@ function OfferCard({ offer, onMouseEnter, isNeighbour }: OfferCardProps): JSX.El
         <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
-            src={offer.images[0]}
+            src={offer.previewImage}
             width="260"
             height="200"
             alt="Place image"

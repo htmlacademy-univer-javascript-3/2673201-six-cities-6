@@ -1,14 +1,13 @@
-import { Offer } from '../../types/type-offer';
 import OfferCard from '../../pages/offer-card/offer-card.tsx';
+import {MainOffer} from '../../types/main-offers.ts';
 
 type OffersListProps = {
-  offers: Offer[];
-  onCardHover?: (offerId: number | null) => void;
-
+  offers: MainOffer[];
+  onCardHover?: (offerId: string | null) => void;
 }
 
 function OffersList({ offers, onCardHover }: OffersListProps): JSX.Element {
-  const handleMouseEnter = (offerId: number) => {
+  const handleMouseEnter = (offerId: string) => {
     onCardHover?.(offerId);
   };
 

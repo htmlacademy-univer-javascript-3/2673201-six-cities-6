@@ -1,30 +1,29 @@
-import {Offer} from '../../types/type-offer.ts';
-import OffersList from '../../components/offer-list/offers-list.tsx';
+import OffersList from '../../components/offer-list/offers-list';
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
-import Map from '../../components/map/map.tsx';
-import CitiesList from '../../components/cities-list/cities-list.tsx';
-import {City} from '../../types/type-city.ts';
-import {useSelector} from 'react-redux';
-import {State} from '../../types/state.ts';
-import {CITIES_LIST} from '../../mocks/cities.ts';
-import {SortType} from '../../const.ts';
-import SortOperations from '../../components/sort-operations/sort-operations.tsx';
+import Map from '../../components/map/map';
+import CitiesList from '../../components/cities-list/cities-list';
+import {City} from '../../types/type-city';
+import {SortType} from '../../const';
+import SortOperations from '../../components/sort-operations/sort-operations';
+import {CITIES_LIST} from '../../const/cities';
+import {useAppSelector} from '../../hooks';
+import {MainOffer} from '../../types/main-offers.ts';
 
-type MainScreenProps = {
-  offerCardCount: number;
-  offers: Offer[];
-}
-
-function MainScreen({offerCardCount, offers}: MainScreenProps): JSX.Element {
-  const [activeOfferId, setActiveOfferId] = useState<number | null>(null);
+function MainScreen(): JSX.Element {
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [activeSort, setActiveSort] = useState<SortType>(SortType.Popular);
-  const handleCardHover = (offerId: number | null) => {
+  const city = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers) as MainOffer[];
+  const offerCardCount = offers.length;
+  const handleCardHover = (offerId: string | null) => {
     setActiveOfferId(offerId);
   };
-  const cityName = useSelector((state: State) => state.city);
-  const currentCity: City = CITIES_LIST.find((city) => city.name === cityName) ?? CITIES_LIST[0];
-  const sortOffers = (offersList: Offer[], sortType: SortType): Offer[] => {
+  const currentCity: City = CITIES_LIST.find((c) => c.name === city) ?? CITIES_LIST[0];
+  const sortOffers = (
+    offersList: MainOffer[],
+    sortType: SortType
+  ): MainOffer[] => {
     switch (sortType) {
       case SortType.PriceLowToHigh:
         return [...offersList].sort((a, b) => a.price - b.price);
@@ -39,7 +38,8 @@ function MainScreen({offerCardCount, offers}: MainScreenProps): JSX.Element {
 
   const sortedOffers = sortOffers(offers, activeSort);
   const coords: [number, number][] = sortedOffers.map((off) => off.coordinates);
-  const activeCoord: [number, number] | null = sortedOffers.find((off) => off.id === activeOfferId)?.coordinates ?? null;
+  const activeOffer = sortedOffers.find((off) => off.id === activeOfferId);
+  const activeCoord: [number, number] | null = activeOffer ? activeOffer.coordinates : null;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -83,7 +83,7 @@ function MainScreen({offerCardCount, offers}: MainScreenProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {offerCardCount} places to stay in {cityName}
+                {offerCardCount} places to stay in {currentCity.name}
               </b>
               <SortOperations
                 activeSort={activeSort}

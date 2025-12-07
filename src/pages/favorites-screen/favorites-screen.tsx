@@ -1,11 +1,9 @@
-import { Offer } from '../../types/type-offer';
 import OfferCard from '../offer-card/offer-card.tsx';
+import {useAppSelector} from '../../hooks';
 
-type FavoritesScreenProps = {
-  offers: Offer[];
-}
-
-function FavoritesScreen({ offers }: FavoritesScreenProps): JSX.Element {
+function FavoritesScreen(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   return (
     <div className="page">
       <header className="header">
@@ -23,7 +21,7 @@ function FavoritesScreen({ offers }: FavoritesScreenProps): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favoriteOffers.length}</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
@@ -46,25 +44,7 @@ function FavoritesScreen({ offers }: FavoritesScreenProps): JSX.Element {
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
                     <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  {offers.map((offer) => (
-                    <OfferCard
-                      key={offer.id}
-                      offer={offer}
-                    />
-                  ))}
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Cologne</span>
+                      <span>{offers[0].city}</span>
                     </a>
                   </div>
                 </div>
