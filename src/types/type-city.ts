@@ -1,4 +1,4 @@
-import {CityType} from './type-offer.ts';
+export type CityType = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
 
 export type City = {
   id: number;

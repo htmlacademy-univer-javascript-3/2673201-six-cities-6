@@ -1,8 +1,8 @@
-import {useRef, useEffect} from 'react';
-import leaflet, {layerGroup} from 'leaflet';
+import { useRef, useEffect } from 'react';
+import leaflet, { layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import useMap from './use-map.jsx';
-import {City} from '../../types/type-city.js';
+import useMap from './use-map';
+import { City } from '../../types/type-city';
 
 export type OffersMapProps = {
   city: City;
@@ -10,8 +10,8 @@ export type OffersMapProps = {
   activeCoord: [number, number] | null;
 };
 
-function Map({city, coords, activeCoord}: OffersMapProps): JSX.Element {
-  const mapRef = useRef(null);
+function Map({ city, coords, activeCoord }: OffersMapProps): JSX.Element {
+  const mapRef = useRef<HTMLDivElement | null>(null);
   const map = useMap(mapRef, city);
   const defaultIcon = leaflet.icon({
     iconUrl: '/img/pin.svg',
@@ -29,20 +29,26 @@ function Map({city, coords, activeCoord}: OffersMapProps): JSX.Element {
       return;
     }
     const markersLayer = layerGroup().addTo(map);
-    coords.forEach((coord) => {
-      const isActive =
-          activeCoord &&
+    coords
+      .filter(
+        (coord): coord is [number, number] =>
+          Array.isArray(coord) &&
+          coord.length === 2 &&
+          typeof coord[0] === 'number' &&
+          typeof coord[1] === 'number'
+      )
+      .forEach((coord) => {
+        const isActive =
+          activeCoord !== null &&
           coord[0] === activeCoord[0] &&
           coord[1] === activeCoord[1];
-      leaflet.marker(
-        {
-          lat: coord[0],
-          lng: coord[1],
-        },
-        {
-          icon: isActive ? activeIcon : defaultIcon,
-        }).addTo(markersLayer);
-    });
+        leaflet
+          .marker(
+            { lat: coord[0], lng: coord[1] },
+            { icon: isActive ? activeIcon : defaultIcon }
+          )
+          .addTo(markersLayer);
+      });
 
     return () => {
       map.removeLayer(markersLayer);
@@ -51,7 +57,7 @@ function Map({city, coords, activeCoord}: OffersMapProps): JSX.Element {
 
   return (
     <div
-      style={{height: '100%'}}
+      style={{ height: '100%' }}
       ref={mapRef}
     />
   );

@@ -1,7 +1,6 @@
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import { changeCity } from '../../store/action';
-import type { City } from '../../types/type-city';
-import type { CityType } from '../../types/type-offer';
+import type {City} from '../../types/type-city';
 
 type CitiesListProps = {
   cities: City[];
@@ -11,8 +10,8 @@ export default function CitiesList({ cities}: CitiesListProps): JSX.Element {
   const dispatch = useAppDispatch();
   const activeCity = useAppSelector((state) => state.city);
 
-  const handleCityClick = (city: CityType) => {
-    dispatch(changeCity(city));
+  const handleCityClick = (cityName: City['name']) => {
+    dispatch(changeCity(cityName));
   };
 
   return (
