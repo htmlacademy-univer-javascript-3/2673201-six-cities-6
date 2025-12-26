@@ -1,4 +1,5 @@
 import { SortType } from '../../const';
+import {useState} from 'react';
 
 type SortOperationsProps = {
   activeSort: SortType;
@@ -6,6 +7,7 @@ type SortOperationsProps = {
 };
 
 function SortOperations({ activeSort, onSortChange }: SortOperationsProps): JSX.Element {
+  const [isOpen, setIsOpen] = useState(false);
   const sortOperations = [
     SortType.Popular,
     SortType.PriceLowToHigh,
@@ -15,23 +17,27 @@ function SortOperations({ activeSort, onSortChange }: SortOperationsProps): JSX.
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0}>
+      <span className="places__sorting-caption">Sort by  </span>
+      <span
+        className="places__sorting-type"
+        tabIndex={0}
+        onClick={() => setIsOpen((v) => !v)}
+      >
         {activeSort}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened">
+      <ul className={`places__options places__options--custom ${isOpen ? 'places__options--opened' : ''}`}>
         {sortOperations.map((operation) => (
           <li
             key={operation}
-            className={
-              `places__option${
-                operation === activeSort ? ' places__option--active' : ''}`
-            }
+            className={`places__option${operation === activeSort ? ' places__option--active' : ''}`}
             tabIndex={0}
-            onClick={() => onSortChange(operation)}
+            onClick={() => {
+              onSortChange(operation);
+              setIsOpen(false);
+            }}
           >
             {operation}
           </li>

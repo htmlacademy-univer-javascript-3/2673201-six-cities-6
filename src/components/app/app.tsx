@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -6,15 +7,19 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFound from '../../pages/found-not-screen/found-not-screen';
 import PrivateRoute from '../private-route/private-route';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import {fetchOffers} from '../../store/api-actions.ts';
+import {AppRoute} from '../../const';
+import {checkAuth, fetchOffers} from '../../store/api-actions.ts';
 import Spinner from '../spinner/spinner.tsx';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
-  if (isOffersLoading) {
+  useEffect(() => {
     dispatch(fetchOffers());
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  if (isOffersLoading) {
     return <Spinner />;
   }
 
@@ -34,7 +39,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute>
               <FavoritesScreen />
             </PrivateRoute>
           }

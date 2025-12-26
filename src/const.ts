@@ -1,3 +1,5 @@
+import {CityType} from './types/type-city.js';
+
 export enum AppRoute {
   Login = '/login',
   Root = '/',
@@ -9,7 +11,7 @@ export enum AppRoute {
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unauthorized = 'UNAUTHORIZED',
+  Unknown = 'UNKNOWN',
 }
 
 export enum CITIES {
@@ -38,3 +40,4 @@ export enum APIRoute {
 export const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+export const DEFAULT_CITY: CityType = 'Paris';

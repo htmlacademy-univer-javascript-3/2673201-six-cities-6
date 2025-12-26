@@ -8,13 +8,25 @@ type Props = {
   reviews: Review[];
 };
 
-function OfferMain({ offer, reviews }: Props) {
-  const images: string[] =
-    (offer.images?.length ? offer.images : null) ??
-    (offer.previewImage ? [offer.previewImage] : []);
+function OfferMain({ offer, reviews }: Props): JSX.Element {
+  let images: string[] = [];
+  if (offer.images && offer.images.length > 0) {
+    images = offer.images;
+  } else if (offer.previewImage) {
+    images = [offer.previewImage];
+  }
+  const goods = offer.goods ?? [];
   const hostName = offer.host?.name ?? 'Host';
-  const hostAvatarUrl = offer.host?.avatarUrl ?? 'avatar-default.jpg';
+  const hostAvatarUrl = offer.host?.avatarUrl ?? '';
   const hostIsPro = offer.host?.isPro ?? false;
+  let avatarSrc = '/img/avatar-default.jpg';
+  if (hostAvatarUrl) {
+    if (hostAvatarUrl.startsWith('http') || hostAvatarUrl.startsWith('/')) {
+      avatarSrc = hostAvatarUrl;
+    } else {
+      avatarSrc = `/${hostAvatarUrl}`;
+    }
+  }
   const bedrooms = offer.bedrooms ?? 0;
   const maxAdults = offer.maxAdults ?? 0;
   const description = offer.description ?? '';
@@ -24,7 +36,7 @@ function OfferMain({ offer, reviews }: Props) {
         <div className="offer__gallery">
           {images.slice(0, 6).map((image) => (
             <div key={image} className="offer__image-wrapper">
-              <img className="offer__image" src={image} alt={offer.title} />
+              <img className="offer__image" src={image} alt={offer.title ?? 'Offer image'}/>
             </div>
           ))}
         </div>
@@ -60,7 +72,7 @@ function OfferMain({ offer, reviews }: Props) {
 
           <ul className="offer__features">
             <li className="offer__feature offer__feature--entire">
-              {offer.type}
+              {offer.type ?? 'apartment'}
             </li>
             <li className="offer__feature offer__feature--bedrooms">
               {bedrooms} Bedrooms
@@ -77,29 +89,32 @@ function OfferMain({ offer, reviews }: Props) {
 
           <div className="offer__inside">
             <h2 className="offer__inside-title">What&apos;s inside</h2>
-            <ul className="offer__inside-list">
-              <li className="offer__inside-item">Wi-Fi</li>
-              <li className="offer__inside-item">Heating</li>
-              <li className="offer__inside-item">Kitchen</li>
-            </ul>
+            {goods.length > 0 ? (
+              <ul className="offer__inside-list">
+                {goods.map((item) => (
+                  <li key={item} className="offer__inside-item">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="offer__inside-item">No facilities info</p>
+            )}
           </div>
 
           <div className="offer__host">
-            <h2 className="offer__host-title">Meet the host</h2>
             <div className="offer__host-user user">
-              <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+              <div className={`offer__avatar-wrapper user__avatar-wrapper${hostIsPro ? ' offer__avatar-wrapper--pro' : ''}`}>
                 <img
                   className="offer__avatar user__avatar"
-                  src={`img/${hostAvatarUrl}`}
+                  src={avatarSrc}
                   width="74"
                   height="74"
                   alt={`${hostName} avatar`}
                 />
               </div>
               <span className="offer__user-name">{hostName}</span>
-              <span className="offer__user-status">
-                {hostIsPro ? 'Pro' : 'Base'}
-              </span>
+              {hostIsPro && <span className="offer__user-status">Pro</span>}
             </div>
 
             <div className="offer__description">

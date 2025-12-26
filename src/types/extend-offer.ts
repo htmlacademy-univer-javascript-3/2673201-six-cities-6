@@ -1,17 +1,20 @@
-import {MainOffer} from './main-offers.ts';
+import type { MainOffer } from './main-offers';
 
 export type OfferRentType = 'apartment' | 'room' | 'house' | 'hotel';
 
+export type Host = {
+  name: string;
+  isPro: boolean;
+  avatarUrl: string;
+};
+
 export type ExtendOffer = MainOffer & {
+  description?: string;
   images?: string[];
   previewImage?: string;
-  description?: string;
-  type: OfferRentType;
+  goods?: string[];
+  type?: OfferRentType;
   bedrooms?: number;
-  maxAdults: number;
-  host?: {
-    name: string;
-    isPro: boolean;
-    avatarUrl: string;
-  };
+  maxAdults?: number;
+  host?: Host;
 };
