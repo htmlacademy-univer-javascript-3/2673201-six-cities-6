@@ -41,6 +41,12 @@ type ReviewFromServer = Omit<Review, 'text'> & {
   comment: string;
 };
 
+type OfferShortFromServer = Omit<MainOffer, 'coordinates'> & {
+  city: { name: CityType };
+  location: { latitude: number; longitude: number };
+};
+
+
 type MainOffersFromServer = MainOfferFromServer[];
 
 export const login = createAsyncThunk<void, AuthData, ThunkConfig>(
@@ -102,12 +108,45 @@ export const fetchReviews = createAsyncThunk<Review[], string, ThunkConfig>(
 
 export const fetchOfferById = createAsyncThunk<ExtendOffer, string, ThunkConfig>(
   'offer/fetchById',
+  async (offerId, { extra: api, rejectWithValue }) => {
+    try {
+      const { data } = await api.get<OfferFromServer>(`${APIRoute.Offers}/${offerId}`);
+      return {
+        ...data,
+        city: data.city.name,
+        coordinates: [data.location.latitude, data.location.longitude],
+      };
+    } catch {
+      return rejectWithValue('NOT_FOUND');
+    }
+  }
+);
+
+export const postComment = createAsyncThunk<Review[], { offerId: string; comment: string; rating: number }, ThunkConfig>(
+  'comments/post',
+  async ({ offerId, comment, rating }, { extra: api }) => {
+    const { data } = await api.post<ReviewFromServer[]>(
+      `${APIRoute.Comments}/${offerId}`,
+      { comment, rating }
+    );
+    return data.map((r) => ({
+      ...r,
+      text: r.comment,
+    }));
+  }
+);
+
+
+export const fetchNearbyOffers = createAsyncThunk<MainOffers, string, ThunkConfig>(
+  'offer/fetchNearby',
   async (offerId, { extra: api }) => {
-    const { data } = await api.get<OfferFromServer>(`${APIRoute.Offers}/${offerId}`);
-    return {
-      ...data,
-      city: data.city.name,
-      coordinates: [data.location.latitude, data.location.longitude],
-    };
+    const { data } = await api.get<OfferShortFromServer[]>(
+      `${APIRoute.Offers}/${offerId}/nearby`
+    );
+    return data.map((offer) => ({
+      ...offer,
+      city: offer.city.name,
+      coordinates: [offer.location.latitude, offer.location.longitude],
+    }));
   }
 );

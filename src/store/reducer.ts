@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import {changeCity, requireAuthorization, setCurrentOffer, setError, setLoadingStatus, setOffers,} from './action';
+import {changeCity, requireAuthorization, setError, setLoadingStatus, setOffers,} from './action';
 import type { InitialState } from '../types/state';
-import {AuthorizationStatus, DEFAULT_CITY} from '../const';
-import {fetchOfferById, fetchReviews} from './api-actions.ts';
+import { AuthorizationStatus, DEFAULT_CITY } from '../const';
+import {fetchNearbyOffers, fetchOfferById, fetchReviews, postComment,} from './api-actions';
 
 const initialState: InitialState = {
   city: DEFAULT_CITY,
@@ -32,13 +32,35 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setError, (state, action) => {
       state.error = action.payload;
     })
-    .addCase(fetchReviews.fulfilled, (state, { payload }) => {
-      state.reviews = payload;
+    .addCase(fetchOfferById.pending, (state) => {
+      state.currentOffer = null;
+      state.error = null;
     })
-    .addCase(setCurrentOffer, (state, action) => {
+    .addCase(fetchOfferById.fulfilled, (state, action) => {
       state.currentOffer = action.payload;
     })
-    .addCase(fetchOfferById.fulfilled, (state, { payload }) => {
-      state.currentOffer = payload;
+    .addCase(fetchOfferById.rejected, (state, action) => {
+      state.error = (action.payload as string) ?? 'FAILED_TO_LOAD_OFFER';
+    })
+    .addCase(fetchNearbyOffers.pending, (state) => {
+      state.nearbyOffers = [];
+    })
+    .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
+      state.nearbyOffers = action.payload;
+    })
+    .addCase(fetchNearbyOffers.rejected, (state) => {
+      state.nearbyOffers = [];
+    })
+    .addCase(fetchReviews.pending, (state) => {
+      state.reviews = [];
+    })
+    .addCase(fetchReviews.fulfilled, (state, action) => {
+      state.reviews = action.payload;
+    })
+    .addCase(fetchReviews.rejected, (state) => {
+      state.reviews = [];
+    })
+    .addCase(postComment.fulfilled, (state, action) => {
+      state.reviews = action.payload;
     });
 });
