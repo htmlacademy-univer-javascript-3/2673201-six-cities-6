@@ -1,16 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
-import {changeCity, requireAuthorization, setError, setLoadingStatus, setOffers,} from './action';
+import {changeCity, requireAuthorization, setCurrentOffer, setError, setLoadingStatus, setOffers,} from './action';
 import type { InitialState } from '../types/state';
-import { AuthorizationStatus, CITIES } from '../const';
-import {fetchReviews} from './api-actions.ts';
+import {AuthorizationStatus, DEFAULT_CITY} from '../const';
+import {fetchOfferById, fetchReviews} from './api-actions.ts';
 
 const initialState: InitialState = {
-  city: CITIES.Paris,
+  city: DEFAULT_CITY,
   offers: [],
   currentOffer: null,
   nearbyOffers: [],
   reviews: [],
-  authorizationStatus: AuthorizationStatus.Unauthorized,
+  authorizationStatus: AuthorizationStatus.Unknown,
   isOffersLoading: true,
   error: null,
 };
@@ -34,5 +34,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchReviews.fulfilled, (state, { payload }) => {
       state.reviews = payload;
+    })
+    .addCase(setCurrentOffer, (state, action) => {
+      state.currentOffer = action.payload;
+    })
+    .addCase(fetchOfferById.fulfilled, (state, { payload }) => {
+      state.currentOffer = payload;
     });
 });

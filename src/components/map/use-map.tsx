@@ -25,6 +25,14 @@ function useMap(mapRef: RefObject<HTMLElement>, city: City): leaflet.Map | null 
       isRenderedRef.current = true;
     }
   }, [mapRef, city]);
+  useEffect(() => {
+    if (map) {
+      map.setView(
+        { lat: city.latitude, lng: city.longitude },
+        city.zoom
+      );
+    }
+  }, [map, city]);
   return map;
 }
 

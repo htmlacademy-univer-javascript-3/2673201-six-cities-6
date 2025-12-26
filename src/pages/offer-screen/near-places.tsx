@@ -1,8 +1,8 @@
 import OfferCard from '../offer-card/offer-card';
-import type { ExtendOffer } from '../../types/extend-offer.ts';
+import {MainOffer} from "../../types/main-offers.ts";
 
 type Props = {
-  neighbors: ExtendOffer[];
+  neighbors: MainOffer[];
 };
 
 function NearPlaces({ neighbors }: Props) {

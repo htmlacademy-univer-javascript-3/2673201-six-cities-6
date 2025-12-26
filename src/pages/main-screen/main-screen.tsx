@@ -15,7 +15,6 @@ function MainScreen(): JSX.Element {
   const [activeSort, setActiveSort] = useState<SortType>(SortType.Popular);
   const city = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers) as MainOffer[];
-  const offerCardCount = offers.length;
   const handleCardHover = (offerId: string | null) => {
     setActiveOfferId(offerId);
   };
@@ -35,8 +34,9 @@ function MainScreen(): JSX.Element {
         return offersList;
     }
   };
-
-  const sortedOffers = sortOffers(offers, activeSort);
+  const cityOffers = offers.filter((offer) => offer.city === city);
+  const sortedOffers = sortOffers(cityOffers, activeSort);
+  const offerCardCount = sortedOffers.length;
   const coords: [number, number][] = sortedOffers.map((off) => off.coordinates);
   const activeOffer = sortedOffers.find((off) => off.id === activeOfferId);
   const activeCoord: [number, number] | null = activeOffer ? activeOffer.coordinates : null;
