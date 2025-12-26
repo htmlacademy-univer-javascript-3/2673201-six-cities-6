@@ -1,5 +1,5 @@
 import { SortType } from '../../const';
-import {useState} from "react";
+import {useState} from 'react';
 
 type SortOperationsProps = {
   activeSort: SortType;

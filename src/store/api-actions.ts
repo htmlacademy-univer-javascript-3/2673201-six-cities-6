@@ -5,9 +5,9 @@ import {APIRoute, AuthorizationStatus} from '../const';
 import {changeCity, setOffers, setLoadingStatus, setError, requireAuthorization} from './action';
 import type {MainOffer, MainOffers} from '../types/main-offers';
 import type { Review } from '../types/type-review';
-import {CityType} from "../types/type-city.ts";
-import {saveToken} from "../services/token.ts";
-import {ExtendOffer} from "../types/extend-offer.ts";
+import {CityType} from '../types/type-city.ts';
+import {saveToken} from '../services/token.ts';
+import {ExtendOffer} from '../types/extend-offer.ts';
 
 type MainOfferFromServer = Omit<MainOffer, 'coordinates'> & {
   city: { name: CityType };

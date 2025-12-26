@@ -7,16 +7,31 @@ type ReviewProps = {
 function ReviewDisplay({ review }: ReviewProps): JSX.Element {
   const ratingWidth = `${(review.rating / 5) * 100}%`;
   const avatarUrl = review.user.avatarUrl ?? '';
-  const avatarSrc = avatarUrl.startsWith('http') ? avatarUrl : avatarUrl.startsWith('/') ? avatarUrl : `/${avatarUrl}`;
+  let avatarSrc = '';
+  if (avatarUrl.startsWith('http')) {
+    avatarSrc = avatarUrl;
+  } else if (avatarUrl.startsWith('/')) {
+    avatarSrc = avatarUrl;
+  } else if (avatarUrl) {
+    avatarSrc = `/${avatarUrl}`;
+  } else {
+    avatarSrc = '/img/avatar.svg';
+  }
   const dateObj = new Date(review.date);
   const isValidDate = !Number.isNaN(dateObj.getTime());
-  const formattedDate = isValidDate ? dateObj.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : review.date;
+  const formattedDate = isValidDate
+    ? dateObj.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+    : review.date;
   const dateTime = isValidDate ? dateObj.toISOString() : review.date;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={avatarSrc} width="54" height="54" alt={`${review.user.name} avatar`} onError={(e) => {e.currentTarget.src = '/img/avatar.svg';}}/>
+          <img className="reviews__avatar user__avatar" src={avatarSrc} width="54" height="54" alt={`${review.user.name} avatar`}
+            onError={(e) => {
+              e.currentTarget.src = '/img/avatar.svg';
+            }}
+          />
         </div>
         <span className="reviews__user-name">{review.user.name}</span>
       </div>

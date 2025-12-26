@@ -1,5 +1,5 @@
 import OfferCard from '../offer-card/offer-card';
-import {MainOffer} from "../../types/main-offers.ts";
+import {MainOffer} from '../../types/main-offers.ts';
 
 type Props = {
   neighbors: MainOffer[];

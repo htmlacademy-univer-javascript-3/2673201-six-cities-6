@@ -1,4 +1,4 @@
-import {CityType} from "./types/type-city.js";
+import {CityType} from './types/type-city.js';
 
 export enum AppRoute {
   Login = '/login',
