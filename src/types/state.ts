@@ -1,9 +1,13 @@
 import { store } from '../store';
 import { AuthorizationStatus } from '../const';
-import {CityType} from './type-city.ts';
-import {MainOffers} from './main-offers.ts';
-import {Review} from './type-review.ts';
-import {ExtendOffer} from './extend-offer.ts';
+import { CityType } from './type-city';
+import { MainOffers } from './main-offers';
+import { Review } from './type-review';
+import { ExtendOffer } from './extend-offer';
+
+export type UserData = {
+  email: string;
+};
 
 export type InitialState = {
   city: CityType;
@@ -12,8 +16,10 @@ export type InitialState = {
   nearbyOffers: MainOffers;
   reviews: Review[];
   authorizationStatus: AuthorizationStatus;
+  user: UserData | null;
   isOffersLoading: boolean;
   error: string | null;
+  favorites: MainOffers;
 };
 
 export type State = ReturnType<typeof store.getState>;

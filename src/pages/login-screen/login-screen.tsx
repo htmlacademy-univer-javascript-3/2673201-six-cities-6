@@ -38,10 +38,9 @@ function LoginScreen(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post"
-              onSubmit={(evt) => {
-                void handleSubmit(evt);
-              }}
+            <form className="login__form form" action="#" method="post" onSubmit={(evt) => {
+              void handleSubmit(evt);
+            }}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden" htmlFor="email">
@@ -68,7 +67,7 @@ function LoginScreen(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
+                <span>Paris</span>
               </a>
             </div>
           </section>

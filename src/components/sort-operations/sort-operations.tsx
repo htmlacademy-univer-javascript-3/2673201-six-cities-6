@@ -1,5 +1,5 @@
 import { SortType } from '../../const';
-import {useState} from 'react';
+import {memo, useState} from 'react';
 
 type SortOperationsProps = {
   activeSort: SortType;
@@ -47,4 +47,4 @@ function SortOperations({ activeSort, onSortChange }: SortOperationsProps): JSX.
   );
 }
 
-export default SortOperations;
+export default memo(SortOperations);
