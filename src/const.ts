@@ -1,5 +1,12 @@
 import {CityType} from './types/type-city.js';
 
+export const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
+export const REQUEST_TIMEOUT = 5000;
+export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+export const DEFAULT_CITY: CityType = 'Paris';
+export const MIN_LEN = 50;
+export const MAX_LEN = 300;
+
 export enum AppRoute {
   Login = '/login',
   Root = '/',
@@ -14,15 +21,6 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum CITIES {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf'
-}
-
 export enum SortType {
   Popular = 'Popular',
   PriceLowToHigh = 'Price: low to high',
@@ -33,11 +31,6 @@ export enum SortType {
 export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
-  Logout = '/logout',
   Comments = '/comments',
+  Favorites = '/favorites',
 }
-
-export const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
-export const REQUEST_TIMEOUT = 5000;
-export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
-export const DEFAULT_CITY: CityType = 'Paris';

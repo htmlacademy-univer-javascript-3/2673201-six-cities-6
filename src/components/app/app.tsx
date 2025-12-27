@@ -25,8 +25,18 @@ function App(): JSX.Element {
         <Spinner />
       ) : (
         <Routes>
-          <Route path={AppRoute.Root} element={<MainScreen />} />
-          <Route path={AppRoute.Login} element={<LoginScreen />} />
+          <Route
+            path={AppRoute.Root}
+            element={
+            <MainScreen/>
+          }
+          />
+          <Route
+            path={AppRoute.Login}
+            element={
+            <LoginScreen/>
+          }
+          />
           <Route
             path={AppRoute.Favorites}
             element={
@@ -35,9 +45,25 @@ function App(): JSX.Element {
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.Offer} element={<OfferScreen />} />
-          <Route path={AppRoute.NotFound} element={<NotFound />} />
-          <Route path="*" element={<Navigate to={AppRoute.NotFound} replace />} />
+          <Route
+            path={AppRoute.Offer}
+            element={
+            <OfferScreen/>
+          }
+          />
+          <Route
+            path={AppRoute.NotFound}
+            element={
+            <NotFound />
+          }
+          />
+          <Route
+            path="*"
+            element={
+            <Navigate to={AppRoute.NotFound} replace
+            />
+          }
+          />
         </Routes>
       )}
     </BrowserRouter>

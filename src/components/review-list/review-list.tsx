@@ -1,12 +1,13 @@
 import type { Review } from '../../types/type-review';
 import ReviewDisplay from '../review/review';
+import {memo, useMemo} from "react";
 
 type ReviewListProps = {
   reviews: Review[];
 }
 
 function ReviewList({ reviews }: ReviewListProps): JSX.Element {
-  const shownReviews = reviews.slice(0, 10);
+  const shownReviews = useMemo(() => reviews.slice(0, 10), [reviews]);
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
@@ -21,4 +22,4 @@ function ReviewList({ reviews }: ReviewListProps): JSX.Element {
   );
 }
 
-export default ReviewList;
+export default memo(ReviewList);

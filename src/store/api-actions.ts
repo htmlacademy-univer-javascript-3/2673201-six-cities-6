@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { AxiosInstance } from 'axios';
 import type { AppDispatch, State } from '../types/state';
 import {APIRoute, AuthorizationStatus} from '../const';
-import {changeCity, setOffers, setLoadingStatus, setError, requireAuthorization} from './action';
+import {changeCity, setOffers, setLoadingStatus, setError, requireAuthorization, setUser, logout} from './action';
 import type {MainOffer, MainOffers} from '../types/main-offers';
 import type { Review } from '../types/type-review';
 import {CityType} from '../types/type-city.ts';
-import {saveToken} from '../services/token.ts';
+import {dropToken, saveToken} from '../services/token.ts';
 import {ExtendOffer} from '../types/extend-offer.ts';
 
 type MainOfferFromServer = Omit<MainOffer, 'coordinates'> & {
@@ -54,7 +54,17 @@ export const login = createAsyncThunk<void, AuthData, ThunkConfig>(
   async ({ email, password }, { dispatch, extra: api }) => {
     const { data } = await api.post<AuthInfo>(APIRoute.Login, { email, password });
     saveToken(data.token);
+    dispatch(setUser({ email }));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  }
+);
+
+export const logoutAction = createAsyncThunk<void, undefined, ThunkConfig>(
+  'user/logout',
+  async (_arg, { dispatch }) => {
+    dropToken();
+    dispatch(logout());
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 );
 
@@ -148,5 +158,31 @@ export const fetchNearbyOffers = createAsyncThunk<MainOffers, string, ThunkConfi
       city: offer.city.name,
       coordinates: [offer.location.latitude, offer.location.longitude],
     }));
+  }
+);
+
+export const fetchFavorites = createAsyncThunk<MainOffers, undefined, ThunkConfig>(
+  'favorites/fetch',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<MainOffersFromServer>(APIRoute.Favorites);
+    return data.map((offer) => ({
+      ...offer,
+      city: offer.city.name,
+      coordinates: [offer.location.latitude, offer.location.longitude],
+    }));
+  }
+);
+
+export const toggleFavorite = createAsyncThunk<MainOffer, { offerId: string; status: 0 | 1 }, ThunkConfig>(
+  'favorite/toggle',
+  async ({ offerId, status }, { extra: api }) => {
+    const { data } = await api.post<MainOfferFromServer>(
+      `/favorite/${offerId}/${status}`
+    );
+    return {
+      ...data,
+      city: data.city.name,
+      coordinates: [data.location.latitude, data.location.longitude],
+    };
   }
 );
