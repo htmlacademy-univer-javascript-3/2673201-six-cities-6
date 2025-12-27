@@ -28,14 +28,14 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Root}
             element={
-            <MainScreen/>
-          }
+              <MainScreen/>
+            }
           />
           <Route
             path={AppRoute.Login}
             element={
-            <LoginScreen/>
-          }
+              <LoginScreen/>
+            }
           />
           <Route
             path={AppRoute.Favorites}
@@ -48,21 +48,20 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Offer}
             element={
-            <OfferScreen/>
-          }
+              <OfferScreen/>
+            }
           />
           <Route
             path={AppRoute.NotFound}
             element={
-            <NotFound />
-          }
+              <NotFound />
+            }
           />
           <Route
             path="*"
             element={
-            <Navigate to={AppRoute.NotFound} replace
-            />
-          }
+              <Navigate to={AppRoute.NotFound} replace/>
+            }
           />
         </Routes>
       )}

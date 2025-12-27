@@ -73,8 +73,8 @@ export const reducer = createReducer(initialState, (builder) => {
       state.user = null;
     })
     .addCase(fetchFavorites.fulfilled, (state, action) => {
-    state.favorites = action.payload;
-  })
+      state.favorites = action.payload;
+    })
     .addCase(toggleFavorite.fulfilled, (state, action) => {
       const updated = action.payload;
       const { id, isFavorite } = updated;
@@ -95,5 +95,5 @@ export const reducer = createReducer(initialState, (builder) => {
       } else {
         state.favorites = state.favorites.filter((o) => o.id !== id);
       }
-    })
+    });
 });

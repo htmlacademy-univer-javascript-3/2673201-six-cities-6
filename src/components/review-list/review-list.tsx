@@ -1,6 +1,6 @@
 import type { Review } from '../../types/type-review';
 import ReviewDisplay from '../review/review';
-import {memo, useMemo} from "react";
+import {memo, useMemo} from 'react';
 
 type ReviewListProps = {
   reviews: Review[];

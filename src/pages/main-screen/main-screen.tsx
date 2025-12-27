@@ -18,12 +18,8 @@ function MainScreen(): JSX.Element {
   const handleCardHover = useCallback((offerId: string | null) => {
     setActiveOfferId(offerId);
   }, []);
-  const currentCity = useMemo<City>(() => {
-    return CITIES_LIST.find((c) => c.name === city) ?? CITIES_LIST[0];
-  }, [city]);
-  const cityOffers = useMemo(() => {
-    return offers.filter((offer) => offer.city === city);
-  }, [offers, city]);
+  const currentCity = useMemo<City>(() => CITIES_LIST.find((c) => c.name === city) ?? CITIES_LIST[0], [city]);
+  const cityOffers = useMemo(() => offers.filter((offer) => offer.city === city), [offers, city]);
   const sortedOffers = useMemo(() => {
     switch (activeSort) {
       case SortType.PriceLowToHigh:
@@ -36,9 +32,7 @@ function MainScreen(): JSX.Element {
         return cityOffers;
     }
   }, [cityOffers, activeSort]);
-  const coords = useMemo<[number, number][]>(() => {
-    return sortedOffers.map((off) => off.coordinates);
-  }, [sortedOffers]);
+  const coords = useMemo<[number, number][]>(() => sortedOffers.map((off) => off.coordinates), [sortedOffers]);
   const activeCoord = useMemo<[number, number] | null>(() => {
     const activeOffer = sortedOffers.find((off) => off.id === activeOfferId);
     return activeOffer ? activeOffer.coordinates : null;

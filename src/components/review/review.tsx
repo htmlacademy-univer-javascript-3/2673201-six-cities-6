@@ -1,5 +1,5 @@
 import type { Review } from '../../types/type-review';
-import {memo} from "react";
+import {memo} from 'react';
 
 type ReviewProps = {
   review: Review;

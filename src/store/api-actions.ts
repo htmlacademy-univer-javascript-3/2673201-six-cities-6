@@ -62,6 +62,7 @@ export const login = createAsyncThunk<void, AuthData, ThunkConfig>(
 export const logoutAction = createAsyncThunk<void, undefined, ThunkConfig>(
   'user/logout',
   async (_arg, { dispatch }) => {
+    await Promise.resolve();
     dropToken();
     dispatch(logout());
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));

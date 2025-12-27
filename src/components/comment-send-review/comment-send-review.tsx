@@ -61,7 +61,10 @@ export function CommentSendReview(): JSX.Element | null {
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={(evt) => {
+      void handleSubmit(evt);
+    }}
+    >
       <label className="reviews__label form__label" htmlFor="comment">
         Your review
       </label>
@@ -107,7 +110,8 @@ export function CommentSendReview(): JSX.Element | null {
         <p className="reviews__help">
           To submit review please make sure to set
           <span
-            className="reviews__star">rating
+            className="reviews__star"
+          >rating
           </span> and describe your stay
           with at least
           <b className="reviews__text-amount">{MIN_LEN} characters</b>

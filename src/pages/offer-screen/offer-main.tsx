@@ -13,20 +13,24 @@ type Props = {
 
 function OfferMain({ offer, reviews }: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  const images = offer.images && offer.images.length > 0
-      ? offer.images
-      : offer.previewImage
-        ? [offer.previewImage]
-        : [];
+  let images: string[] = [];
+  if (offer.images && offer.images.length > 0) {
+    images = offer.images;
+  } else if (offer.previewImage) {
+    images = [offer.previewImage];
+  }
   const goods = offer.goods ?? [];
   const hostName = offer.host?.name ?? 'Host';
   const hostAvatarUrl = offer.host?.avatarUrl ?? '';
   const hostIsPro = offer.host?.isPro ?? false;
-  const avatarSrc = hostAvatarUrl
-    ? (hostAvatarUrl.startsWith('http') || hostAvatarUrl.startsWith('/')
-      ? hostAvatarUrl
-      : `/${hostAvatarUrl}`)
-    : '/img/avatar-default.jpg';
+  let avatarSrc = '/img/avatar-default.jpg';
+  if (hostAvatarUrl) {
+    if (hostAvatarUrl.startsWith('http') || hostAvatarUrl.startsWith('/')) {
+      avatarSrc = hostAvatarUrl;
+    } else {
+      avatarSrc = `/${hostAvatarUrl}`;
+    }
+  }
   const bedrooms = offer.bedrooms ?? 0;
   const maxAdults = offer.maxAdults ?? 0;
   const description = offer.description ?? '';

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import {AppRoute} from "../../const.ts";
-import HeaderNav from "../header-nav/header-nav.tsx";
+import {AppRoute} from '../../const.ts';
+import HeaderNav from '../header-nav/header-nav.tsx';
 
 function Header(): JSX.Element {
   return (

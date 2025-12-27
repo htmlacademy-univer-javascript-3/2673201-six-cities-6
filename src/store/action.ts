@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
 import {MainOffers} from '../types/main-offers.ts';
 import {CityType} from '../types/type-city.ts';
-import {UserData} from "../types/state.ts";
+import {UserData} from '../types/state.ts';
 
 export const changeCity = createAction<CityType>('city/change');
 export const setOffers = createAction<MainOffers>('offers/setOffers');
